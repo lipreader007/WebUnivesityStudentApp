@@ -1,4 +1,7 @@
 
+using Microsoft.EntityFrameworkCore;
+using WebUnivesityStudentApp.Data;
+
 namespace WebUnivesityStudentApp
 {
     public class Program
@@ -14,6 +17,9 @@ namespace WebUnivesityStudentApp
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddDbContext<AppDbContext>(options => 
+            options.UseInMemoryDatabase(builder.Configuration.GetConnectionString("MyTestDb"))
+            );
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
