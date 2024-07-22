@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,10 +10,18 @@ using WebUnivesityStudentApp.Data;
 
 namespace WebUnivesityStudentApp.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/students")]
     [ApiController]
-    public class StudentsController(AppDbContext _context) : ControllerBase
+    public class StudentsController : ControllerBase
     {
+        private readonly ISender _sender;
+        private readonly AppDbContext _context;
+
+        public StudentsController(ISender sender, AppDbContext context)
+        {
+            _sender = sender;
+            _context = context;
+        }
 
         // GET: api/Students
         [HttpGet]
